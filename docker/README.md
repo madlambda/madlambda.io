@@ -28,4 +28,12 @@ If built sucessfully, you can push the image to registry:
 
 ## Running
 
-Emu is the image entrypoint
+Emu is the image entrypoint, then just starting the container you will
+end up in the inferno shell.
+
+```sh
+% docker run -it madlambda/inferno-linux-x86:0.1
+; 
+```
+
+Now you can look at the [inferno install documentation](http://doc.cat-v.org/inferno/4th_edition/release_notes/install) to configure it as a server, signer or terminal.
