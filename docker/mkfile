@@ -8,7 +8,7 @@ nuke:QV:
 	rm -f Dockerfile-$HOSTMODEL
 
 all-linux-x86:QV: Dockerfile-linux-x86
-	echo 'Building a docker for '$HOSTMODEL
+	echo 'Building a docker image for '$HOSTMODEL
 	docker build -t $IMAGE:$VERSION -f Dockerfile-$HOSTMODEL $ROOT
 	echo 'Image ' $IMAGE:$VERSION 'built successfully.'
 	echo 'Push to docker registry with: mk push'
