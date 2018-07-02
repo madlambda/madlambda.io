@@ -1,0 +1,23 @@
+# Builds the inferno docker image
+VERSION=0.1
+
+<mkconfig
+
+all:V: 	all-$HOSTMODEL
+nuke:QV:
+	rm -f Dockerfile-$HOSTMODEL
+
+all-linux-x86:QV: Dockerfile-linux-x86
+	echo 'Building a docker for '$HOSTMODEL
+	docker build -t $IMAGE:$VERSION -f Dockerfile-$HOSTMODEL $ROOT
+	echo 'Image ' $IMAGE:$VERSION 'built successfully.'
+	echo 'Push to docker registry with: mk push'
+
+push:QV:
+	docker push $IMAGE:$VERSION
+
+Dockerfile-linux-x86:QV:
+	rm -f $stem
+	echo 'FROM '$IMAGEDEPS > Dockerfile-$HOSTMODEL
+	cat Dockerfile-${HOSTMODEL}.tpl >> Dockerfile-$HOSTMODEL
+
