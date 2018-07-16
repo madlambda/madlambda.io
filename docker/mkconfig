@@ -1,0 +1,12 @@
+SYSHOST=linux
+OBJTYPE=x86
+
+# root directory of inferno source to be built
+ROOT=/usr/inferno
+
+HOSTMODEL=$SYSHOST-$OBJTYPE
+
+DEPSVERSION=latest
+IMAGEDEPS=madlambda/inferno-$HOSTMODEL-deps:$DEPSVERSION
+
+IMAGE=madlambda/inferno-$HOSTMODEL
