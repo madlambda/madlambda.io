@@ -1,0 +1,9 @@
+# Builds the authentication service container
+
+IMAGE=madlambda/inferno-auth:0.1
+
+all:QV:
+	echo 'run: mk image'
+
+image:QV:
+	docker build -t $IMAGE .
