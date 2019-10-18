@@ -1,0 +1,8 @@
+{
+	"match": {
+		"host": "i4k.madlambda.io"
+	},
+	"action": {
+		"share": "/home/i4k/www"
+	}
+}

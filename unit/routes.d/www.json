@@ -1,0 +1,8 @@
+{
+	"match": {
+		"host": "www.madlambda.io"
+	},
+	"action": {
+		"share": "/var/www"
+	}
+}
