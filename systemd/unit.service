@@ -7,7 +7,7 @@ After=network-online.target
 Type=forking
 PIDFile=/var/run/unit.pid
 EnvironmentFile=-/etc/default/unit
-ExecStart=/usr/local/unit/sbin/unitd $DAEMON_ARGS
+ExecStart=/usr/local/unit/sbin/unitd $UNIT_ARGS
 ExecReload=
 
 [Install]
