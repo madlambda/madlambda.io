@@ -1,6 +1,7 @@
 #!/bin/sh
 
-UNITDIR=/usr/local/unit
+. ./etc/unit.default
+
 export PATH=$UNITDIR/sbin:$PATH
 
 if [ ! -x "$UNITDIR/sbin/unitd" ]; then
