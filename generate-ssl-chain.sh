@@ -25,6 +25,3 @@ cat $OUTDIR/privkey.pem $OUTDIR/fullchain.pem > $OUTDIR/unit-chain.pem
 
 echo "Unit chain generated at: $OUTDIR/unit-chain.pem"
 exit 0
-
-
-
