@@ -1,0 +1,28 @@
+{
+	"listeners": {
+		"*:80": {
+			"pass": "routes"
+		}
+	},
+	"routes": [],
+	"applications": {},
+	"settings": {
+		"http": {
+			"header_read_timeout": 10,
+			"body_read_timeout": 10,
+			"send_timeout": 10,
+			"idle_timeout": 10,
+			"max_body_size": 3146000,
+			"static": {
+				"mime_types": {
+					"text/plain": [
+						".txt",
+						"README",
+						"CHANGES"
+					]
+				}
+			}
+		}
+	}
+}
+
