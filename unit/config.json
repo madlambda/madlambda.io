@@ -1,17 +1,28 @@
 {
 	"listeners": {
 		"*:80": {
+			"pass": "applications/redirect-to-https"
+		},
+		"*:443": {
 			"pass": "routes"
 		}
 	},
 	"routes": [],
-	"applications": {},
+	"applications": {
+		"redirect-to-https": {
+			"type": "python",
+			"user": "root",
+			"group": "root",
+			"module": "wsgi",
+			"path": "/root/madlambda.io/apps/redirect-to-https"
+		}
+	},
 	"settings": {
 		"http": {
 			"header_read_timeout": 10,
 			"body_read_timeout": 10,
 			"send_timeout": 10,
-			"idle_timeout": 10,
+			"idle_timeout": 120,
 			"max_body_size": 3146000,
 			"static": {
 				"mime_types": {
