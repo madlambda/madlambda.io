@@ -6,7 +6,8 @@ SERVER_IP=$(ip addr show $IF | grep "inet\b" | awk '{print $2}' | cut -d/ -f1)
 
 DNS_SERVER="100.100.100.16 100.100.100.17"
 
-# Whitelist of domains
+# Whitelist of IP/domains
+# TODO(i4k): Change this to a proxy!
 PACKAGE_SERVER=$(cat <<-END
 us.archive.ubuntu.com
 archive.canonical.com
@@ -82,7 +83,7 @@ iptables    -A INPUT -p tcp -s 0/0 -d $SERVER_IP --sport 513:65535 \
 iptables    -A OUTPUT -p tcp -s $SERVER_IP -d 0/0 --sport $SSH_PORT \
             --dport 513:65535 -m state --state ESTABLISHED -j ACCEPT
 
-# Allow port 80 and 443
+# Allow madlambda.io website
 iptables    -A INPUT -p tcp -s 0/0 -d $SERVER_IP --sport 513:65535 \
             --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
 
