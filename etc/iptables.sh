@@ -7,7 +7,7 @@ SERVER_IP=$(ip addr show $IF | grep "inet\b" | awk '{print $2}' | cut -d/ -f1)
 DNS_SERVER="100.100.100.16 100.100.100.17"
 
 # Whitelist of domains
-PACKAGE_SERVER="us.archive.ubuntu.com archive.canonical.com security.ubuntu.com www.github.com github.com 140.82.113.3"
+PACKAGE_SERVER="us.archive.ubuntu.com archive.canonical.com security.ubuntu.com www.github.com github.com 140.82.113.3 192.30.255.113"
 
 iptables -F
 iptables -X
