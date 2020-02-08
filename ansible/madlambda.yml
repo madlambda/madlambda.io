@@ -1,6 +1,29 @@
 ---
 - hosts: all
+  connection: local
   tasks:
+  - name: create madlambda group
+    group:
+      name: madlambda
+
+  - name: create i4k user
+    user:
+      name: i4k
+      uid: 1337
+      groups: madlambda
+      append: yes
+
+  - name: prepare src dir
+    file:
+      path: /root/src
+      state: directory
+      mode: '0755'
+
+  - name: clean unit source
+    file:
+      path: /root/src/unit
+      state: absent
+
   - name: install basic dependencies
     apt:
       update_cache: yes
@@ -14,4 +37,59 @@
         - php-dev
         - libphp-embed
         - golang-go
+        - jq
+        - certbot
 
+  - name: clone unit
+    shell: hg clone http://hg.nginx.org/unit/
+    args:
+      chdir: /root/src
+
+  - name: build unit (php, python and go)
+    shell: |
+      make clean || true
+      ./configure --cc-opt="-O3" --prefix=/usr/local/unit --tests --openssl
+      ./configure php
+      ./configure python
+      GOPATH=/root/src/unit/build/go ./configure go
+      make tests
+      ./build/tests
+      make
+      python3 ./test/run.py
+      make install
+    args:
+      chdir: /root/src/unit
+
+  - name: init i4k dir
+    become_user: i4k
+    file:
+      path: /home/i4k/src
+      state: directory
+      mode: '0755'
+
+  - name: remove i4k sources
+    become_user: i4k
+    file:
+      path: /home/i4k/src/i4k.madlambda.io
+      state: absent
+
+  - name: install i4k stuff
+    become_user: i4k
+    shell: git clone https://github.com/tiago4orion/i4k.madlambda.io.git
+    args:
+      chdir: /home/i4k/src
+
+  - name: install madlambda.io
+    shell: ./install.sh
+    args:
+      chdir: /root/src/madlambda.io
+
+  - name: stop && start unit
+    shell: |
+      systemctl stop unit || true
+      systemctl start unit
+
+  - name: configure madlambda.io
+    shell: ./unit/apply.sh
+    args:
+      chdir: /root/src/madlambda.io

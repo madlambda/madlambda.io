@@ -14,7 +14,7 @@
 			"user": "root",
 			"group": "root",
 			"module": "wsgi",
-			"path": "/root/madlambda.io/apps/redirect-to-https"
+			"path": "/root/src/madlambda.io/apps/redirect-to-https"
 		}
 	},
 	"settings": {

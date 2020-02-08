@@ -1,9 +1,0 @@
-{
-	"match": {
-		"host": "i4k.madlambda.io",
-		"uri": "/container"
-	},
-	"action": {
-		"pass": "applications/container-example"
-	}
-}
