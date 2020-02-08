@@ -1,0 +1,17 @@
+---
+- hosts: all
+  tasks:
+  - name: install basic dependencies
+    apt:
+      update_cache: yes
+      state: latest
+      pkg:
+        - mercurial
+        - git
+        - build-essential
+        - libssl-dev
+        - python-dev
+        - php-dev
+        - libphp-embed
+        - golang-go
+
