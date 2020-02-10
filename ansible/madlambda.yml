@@ -39,11 +39,36 @@
         - golang-go
         - jq
         - certbot
+        - wget
+
+  - name: configure mercurial
+    copy:
+      dest: /root/.hgrc
+      content: |
+        [ui]
+        username = root <devnull@madlambda.io>
+
+        color =
+
+        [extensions]
+        mq =
+        purge =
+
+        [diff]
+        showfunc = True
 
   - name: clone unit
     shell: hg clone http://hg.nginx.org/unit/
     args:
       chdir: /root/src
+
+  - name: apply unit TLS patch
+    shell: |
+      wget -O tls-config.patch https://gist.githubusercontent.com/tiago4orion/a3a993c96813f691b9a417193a3ad54e/raw/280459007c2ee21b4b2895812cd9cb2652455530/tls-config.patch
+      hg qimport -n tls-config tls-config.patch
+      hg qpush
+    args:
+      chdir: /root/src/unit
 
   - name: build unit (php, python and go)
     shell: |

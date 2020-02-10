@@ -47,12 +47,22 @@ if ! $CURL -XGET 127.0/certificates/madlambda.io | jq -e ".chain" >/dev/null; th
 	fi
 fi
 
+cat > tls.json << EOF
+{
+	"certificate": "madlambda.io",
+	"protocols": ["SSLv2", "SSLv3", "TLSv1.2", "TLSv1.3"],
+	"ciphers": "HIGH:!aNULL:!MD5"
+}
+EOF
+
 if ! $CURL -XPUT '127.0/config/listeners/*:443/tls' \
-	--data-binary '{"certificate": "madlambda.io"}' | jq -e ".success"; then
+		--data-binary @tls.json | jq -e ".success"; then
 
 	echo "failed to apply certificate to listener *:443"
 	exit 1
 fi
+
+rm -f tls.json
 
 cd unit/apps
 
